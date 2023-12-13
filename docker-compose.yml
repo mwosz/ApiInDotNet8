@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: postgres
+      POSTGRES_DB: app
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+      - 8081:8081
+  
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: postgres
+      POSTGRES_DB: app
+    ports:
+      - 5432:5432
